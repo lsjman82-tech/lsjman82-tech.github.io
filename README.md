@@ -152,7 +152,7 @@
                 
                 <div class="sm:order-1 sm:w-3/5 md:w-2/3 mb-4 sm:mb-0">
                     <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-3 text-accent">이세준</h1>
-                    <p class="text-xl sm:text-2xl font-light text-gray-700 mb-6 border-l-4 pl-3 border-gray-400/50">B2B 고객 발굴부터 매출 성장까지 직접 이끄는 실전형 세일즈 리더</p>
+                    <p class="text-xl sm:text-2xl font-light text-gray-700 mb-6 border-l-4 pl-3 border-gray-400/50">B2B 고객 발굴부터 매출 성장까지 실전형 세일즈 리더</p>
 
                     <address class="mt-4 text-base flex flex-wrap gap-x-8 gap-y-3 text-gray-600 not-italic">
                     <!-- 수정: id="total-career" 추가 -->
