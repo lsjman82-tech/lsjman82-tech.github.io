@@ -247,7 +247,7 @@
                             <p class="achievement-line"><span class="achievement-icon mr-1">📈</span> [매출 성장] 레저용 바이크 장기렌탈 도입 및 파트너사 3곳 유치로 <strong class="text-accent">팀 매출 3.25배 (2억 → 6.5억 원) 성장 달성</strong></p>
                             <p class="achievement-line"><span class="achievement-icon mr-1">🏆</span> [KPI/재고 관리] 시장 및 경쟁사 분석 기반 KPI 재정비 및 재고 확대로 <strong class="text-accent">최고 월 매출 11.8억 원 달성</strong></p>
                             <p class="achievement-line"><span class="achievement-icon mr-1">📞</span> [B2B 영업] 일평균 15건 콜드콜 기반, 요식업 장비 파트너사 2곳 입점 계약 및 신규 매출 <strong class="text-accent">1.5억 원 창출</strong></p>
-                            <p class="achievement-line"><span class="achievement-icon mr-1">💡</span> [신규 상품] 중고차 렌탈 상품 기획 및 런칭 <strong class="text-accent">(프로세스, 렌탈료 산정, 견적서 개발 등 업무 주도), 신규 매출 창출</strong></p> 
+                            <p class="achievement-line"><span class="achievement-icon mr-1">💡</span> [신규 상품] 중고차 렌탈 상품 기획 및 런칭 <strong class="text-accent">(프로세스, 렌탈료 산정, 견적서 개발 등 업무 주도), 신규 매출 1억 원 창출</strong></p> 
                         </div>
                     </div>
 
