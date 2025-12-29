@@ -239,7 +239,7 @@
                             <!-- 수정: id="current-job-period" 추가 -->
                             <span id="current-job-period" class="text-sm text-gray-500 font-medium mt-1 sm:mt-0">2024. 09 ~ 재직 중</span>
                         </div>
-                        <p class="text-base text-gray-600 font-semibold mb-1">영업 1본부 / 모빌리티팀 과장(팀장 직무 대행)</p>
+                        <p class="text-base text-gray-600 font-semibold mb-1">영업 1본부 / 모빌리티팀 팀장</p>
                         <p class="text-xs text-gray-500 mb-4">기업개요: 종합 렌탈 플랫폼 | 매출 1,133.9억 원 (2024) | 사원수 122명</p>
                         
                         <!-- 텍스트 크기 xs, 자간 축소, 줄간격 조정 -->
