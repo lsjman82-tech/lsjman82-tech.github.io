@@ -187,7 +187,7 @@
                         <p class="text-sm font-medium metric-label uppercase">팀 매출 성장</p>
                     </div>
                     <p class="metric-value text-accent">3.25<span class="text-2xl font-bold">배</span></p>
-                    <p class="text-xs text-gray-500 font-light mt-1">모빌리티팀 (2억 → 6.5억 원)</p>
+                    <p class="text-xs text-gray-500 font-light mt-1">비에스온 모빌리티팀 (2억 → 6.5억 원)</p>
                 </div>
 
                 <div class="card metric-card">
@@ -198,7 +198,7 @@
                         <p class="text-sm font-medium metric-label uppercase">최고 월 매출</p>
                     </div>
                     <p class="metric-value text-accent">11.8<span class="text-2xl font-bold">억</span></p>
-                    <p class="text-xs text-gray-500 font-light mt-1">모빌리티팀 최고 실적</p>
+                    <p class="text-xs text-gray-500 font-light mt-1">비에스온 모빌리티팀 최고 실적</p>
                 </div>
 
                 <div class="card metric-card">
@@ -209,7 +209,7 @@
                         <p class="text-sm font-medium metric-label uppercase">대형 계약 수익</p>
                     </div>
                     <p class="metric-value text-accent">6<span class="text-2xl font-bold">억</span></p>
-                    <p class="text-xs text-gray-500 font-light mt-1">미쓰비시 A/S 위탁 (연간)</p>
+                    <p class="text-xs text-gray-500 font-light mt-1">마스타동차관리 미쓰비시 A/S 위탁 (연간)</p>
                 </div>
 
                 <div class="card metric-card">
@@ -220,7 +220,7 @@
                         <p class="text-sm font-medium metric-label uppercase">신규 제휴처</p>
                     </div>
                     <p class="metric-value text-accent">420<span class="text-2xl font-bold">개</span></p>
-                    <p class="text-xs text-gray-500 font-light mt-1">스터디카페 지점 체결</p>
+                    <p class="text-xs text-gray-500 font-light mt-1">아토스터디 스터디카페 지점 체결</p>
                 </div>
             </div>
         </section>
