@@ -187,7 +187,8 @@
                         <p class="text-sm font-medium metric-label uppercase">팀 매출 성장</p>
                     </div>
                     <p class="metric-value text-accent">3.25<span class="text-2xl font-bold">배</span></p>
-                    <p class="text-xs text-gray-500 font-light mt-1">비에스온 모빌리티팀 (2억 → 6.5억 원)</p>
+                    <p class="text-xs text-gray-500 font-light mt-1">비에스온 모빌리티팀 
+                    (2억 → 6.5억 원)</p>
                 </div>
 
                 <div class="card metric-card">
