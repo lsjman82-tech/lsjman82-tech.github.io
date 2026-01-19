@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Professional Portfolio</title>
+  
+  <!-- Tailwind CSS (스타일링) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM (리액트 코어) -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel (JSX를 브라우저가 이해하는 JS로 변환) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#0f172a]">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // --- Lucide Icons (SVG Components) ---
+    // CDN 환경에서는 라이브러리 import가 번거로우므로, 사용된 아이콘을 직접 컴포넌트로 정의합니다.
+    const TrendingUp = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>;
+    const Users = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+    const Target = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
+    const Briefcase = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>;
+    const Award = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>;
+    const Mail = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>;
+    const ChevronDown = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>;
+    const Building2 = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>;
+    const BarChart3 = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>;
+    const Rocket = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.1 4-1 4-1s.72 1.94-1 4z"/><path d="M12 15v5s3.03-.55 4-2c1.1-1.62 1-4 1-4s-1.94-.72-4 1z"/></svg>;
+    const Download = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>;
+
+    // --- Main Component ---
+    const Portfolio = () => {
+      const [activeSection, setActiveSection] = useState('home');
+      const [isScrolled, setIsScrolled] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          setIsScrolled(window.scrollY > 50);
+          
+          const sections = ['home', 'about', 'experience', 'skills', 'contact'];
+          const current = sections.find(section => {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              return rect.top >= 0 && rect.top <= 300;
+            }
+            return false;
+          });
+          if (current) setActiveSection(current);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const scrollTo = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      const experiences = [
+        {
+          company: "비에스온 (BS ON)",
+          role: "모빌리티팀 팀장 / 과장",
+          period: "2024.09 - 현재 (재직중)",
+          type: "종합 렌탈 플랫폼",
+          size: "매출 1,133억 / 122명",
+          color: "border-l-4 border-blue-400",
+          description: [
+            {
+              title: "모빌리티팀 총괄 (2024.12 ~ 현재)",
+              achievements: [
+                "팀 매출 3.25배 성장 달성 (월 2억 → 6.5억) 및 재고 운영 최적화",
+                "중고차 렌탈 신규 상품 런칭으로 신규 매출 1억 원 창출",
+                "레저용 바이크 장기렌탈 도입 및 핵심 파트너사 3곳 신규 유치",
+                "세일즈 파이프라인 관리 및 팀원 코칭을 통한 영업 효율화"
+              ]
+            },
+            {
+              title: "B2B 영업팀 (2024.09 ~ 2024.11)",
+              achievements: [
+                "콜드콜 기반 일평균 15건 이상 파이프라인 관리",
+                "신규 매출 1.5억 창출 및 파트너사 2곳 입점 계약"
+              ]
+            }
+          ]
+        },
+        {
+          company: "커넥트앤",
+          role: "영업팀 매니저",
+          period: "2024.04 - 2024.09",
+          type: "광고 대행 및 마케팅 솔루션",
+          size: "매출 10억 / 6명",
+          color: "border-l-4 border-slate-400",
+          description: [
+            {
+              title: "솔루션 제안 영업",
+              achievements: [
+                "CRM(핑거세일즈) 데이터 관리 및 DB 제안 영업",
+                "일평균 60건 밀착 상담으로 매출 5,500만 원 달성"
+              ]
+            }
+          ]
+        },
+        {
+          company: "아토스터디",
+          role: "솔루션 영업팀 팀장",
+          period: "2022.11 - 2024.04",
+          type: "에듀테크 / 플랫폼",
+          size: "매출 107억 / 72명",
+          color: "border-l-4 border-slate-400",
+          description: [
+            {
+              title: "인프라 확장 및 제휴 영업",
+              achievements: [
+                "Barter 모델 기반 무상 인프라 구축 (앱 콘텐츠 ↔ 공간/전기료)",
+                "프랜차이즈 본사 5곳 협약 및 420개 지점 인프라 확보"
+              ]
+            },
+            {
+              title: "DOOH 광고 영업 & 팀 관리",
+              achievements: [
+                "신규 광고주 3개사 유치 및 매출 2,600만 원 창출",
+                "콜드메일/콜드콜 스크립트 표준화 및 팀 코칭"
+              ]
+            }
+          ]
+        },
+        {
+          company: "커리어 재정비 & 개인활동",
+          role: "Project Manager",
+          period: "2017.07 - 2022.11",
+          type: "개인 활동",
+          size: "-",
+          color: "border-l-4 border-slate-600",
+          description: [
+            {
+              title: "Insight & Experience",
+              achievements: [
+                "공연 사업 기획 및 현장 실무 경험을 통한 책임감 체득",
+                "다양한 조직 내 협업 가치 재확인 및 성과 창출 원동력 확보"
+              ]
+            }
+          ]
+        },
+        {
+          company: "마스타자동차관리",
+          role: "네트워크 사업부 대리",
+          period: "2013.01 - 2017.07",
+          type: "자동차 서비스 플랫폼",
+          size: "매출 904억 / 165명",
+          color: "border-l-4 border-slate-400",
+          description: [
+            {
+              title: "네트워크 관리 및 수익화",
+              achievements: [
+                "수입차(미쓰비시) A/S 위탁운영권 확보 (연 6억 수익 창출)",
+                "전국 80개 가맹점 관리 및 PB 상품 가맹점 2.5배 확대"
+              ]
+            }
+          ]
+        },
+        {
+          company: "GS리테일",
+          role: "CVS 사업부 사원",
+          period: "2010.07 - 2012.06",
+          type: "유통 / 프랜차이즈",
+          size: "매출 10조 / 대기업",
+          color: "border-l-4 border-slate-400",
+          description: [
+            {
+              title: "가맹점 컨설팅 (SV)",
+              achievements: [
+                "12개 가맹점 운영 컨설팅 및 수익성 개선",
+                "가맹 재계약 3건 및 양수도 2건 성사"
+              ]
+            }
+          ]
+        }
+      ];
+
+      const keyMetrics = [
+        { label: "Revenue Growth", value: "325%", desc: "월 매출 2억 → 6.5억 성장", icon: <TrendingUp className="w-6 h-6 text-blue-400" /> },
+        { label: "Partnership", value: "420+", desc: "전국 지점 인프라 확보", icon: <Building2 className="w-6 h-6 text-emerald-400" /> },
+        { label: "Sales Pipeline", value: "Max Efficiency", desc: "CRM & KPI 기반 성과 관리", icon: <Target className="w-6 h-6 text-purple-400" /> },
+        { label: "Experience", value: "10Y+", desc: "B2B, 플랫폼, 유통 영업 전문가", icon: <Award className="w-6 h-6 text-amber-400" /> }
+      ];
+
+      return (
+        <div className="min-h-screen bg-[#0f172a] text-slate-300 font-sans selection:bg-blue-500 selection:text-white">
+          {/* Navigation */}
+          <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0f172a]/90 backdrop-blur-md shadow-lg border-b border-slate-800' : 'bg-transparent'}`}>
+            <div className="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
+              <span className="text-xl font-bold text-slate-100 tracking-tight">SALES<span className="text-blue-500">.</span>PRO</span>
+              <div className="hidden md:flex space-x-8 text-sm font-medium">
+                {['Home', 'About', 'Experience', 'Contact'].map((item) => (
+                  <button 
+                    key={item}
+                    onClick={() => scrollTo(item.toLowerCase())}
+                    className={`hover:text-blue-400 transition-colors ${activeSection === item.toLowerCase() ? 'text-blue-400' : 'text-slate-400'}`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </nav>
+
+          {/* Hero Section */}
+          <section id="home" className="pt-32 pb-20 px-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div className="md:w-3/5 space-y-6">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
+                    <Rocket className="w-4 h-4 mr-2" />
+                    Available for SaaS Sales Lead
+                  </div>
+                  <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight">
+                    데이터 기반의 <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">매출 성장 전략가</span>
+                  </h1>
+                  <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                    10년차 영업 전문가로서 플랫폼, 에듀테크, 모빌리티 산업에서 검증된 성과를 만들어왔습니다.
+                    이제 SaaS 분야에서 확장 가능한 세일즈 파이프라인을 구축하고 폭발적인 성장을 견인하겠습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    <button 
+                      onClick={() => scrollTo('contact')}
+                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all shadow-lg shadow-blue-500/20 flex items-center"
+                    >
+                      Contact Me <ChevronDown className="ml-2 w-4 h-4" />
+                    </button>
+                    <button className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-semibold transition-all border border-slate-700 flex items-center">
+                      <Download className="mr-2 w-4 h-4" /> Download Resume
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Hero Visual / Abstract Dashboard */}
+                <div className="md:w-2/5 relative">
+                  <div className="relative z-10 bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-white font-semibold flex items-center"><BarChart3 className="mr-2 text-blue-400"/> Revenue Impact</h3>
+                      <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">+325% Growth</span>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="text-slate-400">Monthly Revenue</span>
+                          <span className="text-white font-bold">₩6.5억</span>
+                        </div>
+                        <div className="w-full bg-slate-600 h-2 rounded-full overflow-hidden">
+                          <div className="bg-blue-500 h-full w-[95%]"></div>
+                        </div>
+                      </div>
+                      <div className="bg-slate-700/50 rounded-lg p-4">
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="text-slate-400">New Partners</span>
+                          <span className="text-white font-bold">420+ Locations</span>
+                        </div>
+                        <div className="w-full bg-slate-600 h-2 rounded-full overflow-hidden">
+                          <div className="bg-emerald-500 h-full w-[88%]"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl"></div>
+                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Key Metrics Grid */}
+          <section className="py-12 bg-slate-900 border-y border-slate-800">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {keyMetrics.map((metric, index) => (
+                  <div key={index} className="bg-[#1e293b] p-6 rounded-xl border border-slate-700 hover:border-slate-500 transition-all group">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-slate-700 transition-colors">
+                        {metric.icon}
+                      </div>
+                    </div>
+                    <h3 className="text-3xl font-bold text-white mb-1">{metric.value}</h3>
+                    <p className="text-sm font-medium text-blue-400 mb-2">{metric.label}</p>
+                    <p className="text-xs text-slate-400">{metric.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="py-20 px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-center mb-12">
+                <Briefcase className="w-6 h-6 text-blue-500 mr-3" />
+                <h2 className="text-3xl font-bold text-white">Career History</h2>
+              </div>
+
+              <div className="space-y-12">
+                {experiences.map((exp, idx) => (
+                  <div key={idx} className={`relative pl-8 md:pl-0 group`}>
+                    {/* Timeline Line (Desktop) */}
+                    <div className="hidden md:block absolute left-[28px] top-0 bottom-0 w-px bg-slate-700 group-last:bottom-auto group-last:h-full"></div>
+                    
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+                      {/* Left: Meta Info */}
+                      <div className="md:w-1/4 md:text-right relative">
+                        <div className="hidden md:block absolute right-[-25px] top-6 w-3 h-3 rounded-full bg-blue-500 ring-4 ring-[#0f172a] z-10"></div>
+                        <h3 className="text-lg font-bold text-white">{exp.company}</h3>
+                        <p className="text-sm text-blue-400 font-medium mb-2">{exp.period}</p>
+                        <div className="text-xs text-slate-500 bg-slate-800/50 inline-block px-2 py-1 rounded mb-1">
+                          {exp.type}
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          {exp.size}
+                        </div>
+                      </div>
+
+                      {/* Right: Details Card */}
+                      <div className={`md:w-3/4 bg-[#1e293b] rounded-xl p-6 border border-slate-700 shadow-sm hover:shadow-md transition-shadow ${exp.color}`}>
+                        <h4 className="text-xl font-bold text-slate-100 mb-4 flex items-center">
+                          {exp.role}
+                        </h4>
+                        
+                        <div className="space-y-6">
+                          {exp.description.map((desc, dIdx) => (
+                            <div key={dIdx}>
+                              <h5 className="text-sm font-semibold text-slate-300 mb-2 flex items-center">
+                                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                                {desc.title}
+                              </h5>
+                              <ul className="space-y-2 pl-4">
+                                {desc.achievements.map((ach, aIdx) => (
+                                  <li key={aIdx} className="text-sm text-slate-400 leading-relaxed list-disc marker:text-slate-600">
+                                    {ach}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Skills / Why Me Section */}
+          <section id="about" className="py-20 bg-[#1e293b] px-6 border-y border-slate-800">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-white mb-4">Core Competencies for SaaS</h2>
+                <p className="text-slate-400">전통적인 영업 방식부터 최신 CRM 솔루션 활용까지, SaaS 비즈니스 확장에 최적화된 역량을 보유하고 있습니다.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                  <h3 className="text-lg font-bold text-white mb-4 flex items-center">
+                    <Target className="w-5 h-5 text-blue-400 mr-2" />
+                    Sales Strategy
+                  </h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-center text-sm text-slate-300">
+                      <div className="w-full bg-slate-800 rounded-full h-2 mr-3">
+                        <div className="bg-blue-500 h-2 rounded-full" style={{width: '95%'}}></div>
+                      </div>
+                      KPI & Pipeline 구축
+                    </li>
+                    <li className="flex items-center text-sm text-slate-300">
+                      <div className="w-full bg-slate-800 rounded-full h-2 mr-3">
+                        <div className="bg-blue-500 h-2 rounded-full" style={{width: '90%'}}></div>
+                      </div>
+                      B2B 제휴 및 파트너십
+                    </li>
+                    <li className="flex items-center text-sm text-slate-300">
+                      <div className="w-full bg-slate-800 rounded-full h-2 mr-3">
+                        <div className="bg-blue-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                      </div>
+                      신규 상품 기획 (GTM)
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                  <h3 className="text-lg font-bold text-white mb-4 flex items-center">
+                    <Users className="w-5 h-5 text-emerald-400 mr-2" />
+                    Tools & Management
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['FingerSales (CRM)', 'MS Office Expert', 'Sales Coaching', 'Team Building', 'Data Analysis', 'Conflict Resolution'].map((skill) => (
+                      <span key={skill} className="px-3 py-1 bg-slate-800 text-slate-300 text-sm rounded-full border border-slate-700">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section id="contact" className="py-20 px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold text-white mb-8">Ready to Scale Up?</h2>
+              <p className="text-slate-400 mb-10 text-lg">
+                귀사의 비즈니스 성장을 견인할 준비가 되어 있습니다.<br/>
+                구체적인 성과 지표와 전략에 대해 논의하고 싶습니다.
+              </p>
+              
+              <div className="flex flex-col md:flex-row justify-center gap-6">
+                <a 
+                  href="mailto:freeman82@naver.com" 
+                  className="flex items-center justify-center px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all font-semibold shadow-lg shadow-blue-500/20"
+                >
+                  <Mail className="w-5 h-5 mr-2" />
+                  freeman82@naver.com
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="py-8 text-center text-slate-600 text-sm border-t border-slate-800">
+            <p>© 2026. All rights reserved by [Your Name].</p>
+            <p className="mt-2">Designed for SaaS Sales Portfolio.</p>
+          </footer>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Portfolio />);
+  </script>
+</body>
+</html>
